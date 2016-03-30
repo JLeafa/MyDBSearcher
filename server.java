@@ -3,13 +3,13 @@ import java.io.*;
 import java.net.*;
 import java.sql.*;
 
-public class server_matched
+public class server
 {
 	public static final int PORT = 10000;
 	
 	public static void main(String[] args)
 	{
-		server_10000 sv = new server_10000();
+		server sv = new server();
 
 		try{
 			ServerSocket ss = new ServerSocket(PORT);
