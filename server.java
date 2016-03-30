@@ -1,15 +1,15 @@
 import java.util.*;
 import java.io.*;
 import java.net.*;
-import database.sql_connect;
+import java.sql.*;
 
-public class server
+public class server_matched
 {
 	public static final int PORT = 10000;
 	
 	public static void main(String[] args)
 	{
-		server sv = new server();
+		server_10000 sv = new server_10000();
 
 		try{
 			ServerSocket ss = new ServerSocket(PORT);
@@ -40,10 +40,25 @@ class Client extends Thread
 	private Socket sc;
 	private BufferedReader br,br_tmp,brf;
 	private PrintWriter pw;
-	private sql_connect db;
+	public static Connection con = null;
+	public String reply = "";
+	public FileOutputStream fos;
+	public DataOutputStream dos;
+	public String url;
+	public String user;
+	public String password;
+	public File f;
+	public Statement st;
+	public ResultSet rs;
+	public ResultSetMetaData rm;
+	public int cnum;
 
 	public Client(Socket s){
 		sc = s;
+		url = "jdbc:mysql://localhost/test";
+		user = "";
+		password = "";
+		f = new File("./sample.dat");
 	}
 
 	public void run()
@@ -52,13 +67,15 @@ class Client extends Thread
 			br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
 			br_tmp = new BufferedReader(new InputStreamReader(sc.getInputStream()));
 			pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(sc.getOutputStream())));
-			db = new sql_connect();
-			File f = new File("./sample.dat");
 			brf = new BufferedReader(new FileReader(f));
-			
+			con = DriverManager.getConnection(url,user,password);
+			st = con.createStatement();	
 		}
 		catch(FileNotFoundException e){
 			System.out.println("File Not Found");
+		}
+		catch(SQLException e){
+			e.printStackTrace();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -66,32 +83,42 @@ class Client extends Thread
 
 		while(true){
 			
-			try{
+			try{				
 				String str = br.readLine();
 				if(str != null)
 					System.out.println(str);
 
 				switch(str){
 					case "show":
-						db.required_query("SELECT * FROM students");
+						rs = st.executeQuery("SELECT * FROM students");
+						rm = rs.getMetaData();
+						cnum = rm.getColumnCount();
+						while(rs.next()){
+								for(int i=1; i<=cnum; i++){
+									pw.print(rm.getColumnName(i) + " : " + rs.getObject(i) + " ");
+							}
+							pw.print("\n");
+							pw.flush();
+						}
 						break;
 					case "search":
 						String str_tmp = br_tmp.readLine();
-						db.required_query("SELECT * FROM students WHERE " + str_tmp);
+						rs = st.executeQuery("SELECT * FROM students WHERE " + str_tmp);
+						rm = rs.getMetaData();
+						cnum = rm.getColumnCount();
+						while(rs.next()){
+								for(int i=1; i<=cnum; i++){
+									pw.print(rm.getColumnName(i) + " : " + rs.getObject(i) + " ");
+							}
+							pw.print("\n");
+							pw.flush();
+						}
 						break;
 					default:
 						break;
 				}
-
-				String str_f = brf.readLine();
-				while(str_f != null){
-    				pw.println(str_f);
-    				pw.flush();
-				    str_f = brf.readLine();
-  				}
-  				str_f = null;
   				
-				
+				//pw.println("Server : Message \"" + str + "\" from client");
 			}
 			catch(IOException e){
 				e.printStackTrace();

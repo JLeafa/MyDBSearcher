@@ -100,6 +100,7 @@ public class client extends JFrame implements Runnable
 						break;
 					}
 
+					//System.out.println(str);
 					ta.append(str + "\n");
 					
 					sp.getViewport().scrollRectToVisible(new Rectangle(0, Integer.MAX_VALUE - 1, 1, 1));

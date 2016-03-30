@@ -1,16 +1,14 @@
 COMPILER=javac
 JVM=java
-FILE_MAIN=server_10000
-FILE_SQL=test_sql
-PACKAGE=databasetest
-SCRIPT_FILE=clp
+FILE_SERVER=server
+FILE_CLIENT=client
 
 build:
-	$(COMPILER) $(PACKAGE)/$(FILE_SQL).java
-	$(COMPILER) $(FILE_MAIN).java
+	$(COMPILER) $(FILE_CLIENT).java
+	$(COMPILER) $(FILE_SERVER).java
 
 run:
-	$(JVM) $(FILE_MAIN)
+	$(JVM) $(FILE_CLIENT)
 
 clean:
-	rm $(FILE_NAME).class $(PACKAGE)/$(FILE_SQL).class
+	rm *.class

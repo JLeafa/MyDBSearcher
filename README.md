@@ -1,6 +1,6 @@
-# java_network_test
+## java_network_test
 This project is production of network light application with Java.
-## Build
+### Build
 You can build this project as below.
 
 ```
@@ -9,15 +9,15 @@ You can build this project as below.
 
 But, you have to set the classpath that refers corrent directory and mysql.jar
 
-## Do
+### Do
 To execute class files, two consoles or two PC are needed.
-Client
+-Client
 
 ```
 >javac client "Address to connect"
 ```
 
-Server
+-Server
 
 ```
 >make run
