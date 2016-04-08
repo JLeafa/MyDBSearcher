@@ -1,14 +1,14 @@
 COMPILER=javac
 JVM=java
-FILE_SERVER=server
-FILE_CLIENT=client
+FILE_SERVER=server_program
+FILE_CLIENT=client_program
 
 build:
 	$(COMPILER) $(FILE_CLIENT).java
 	$(COMPILER) $(FILE_SERVER).java
 
-run:
-	$(JVM) $(FILE_CLIENT)
+server:
+	$(JVM) $(FILE_SERVER)
 
 clean:
 	rm *.class
