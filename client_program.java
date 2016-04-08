@@ -141,7 +141,7 @@ public class client_program extends JFrame
 
 					String str;
 					if(tf_name.getText().equals("") && tf_age.getText().equals("") && tf_department.getText().equals(""))
-						str = "";
+						str = "view";
 					else
 						str = "search";
 
