@@ -6,9 +6,19 @@ import java.sql.*;
 public class server_program
 {
 	public static final int PORT = 10000;
-	
+	public String user;
+	public String password;
+
 	public static void main(String[] args)
 	{
+		System.out.println("User name : ");
+		Scanner scan_user = new Scanner(System.in);
+		user = scan_user.next();
+
+		System.out.println("Password : ");
+		Scanner scan_pass = new Scanner(System.in);
+		password = scan_pass.next();
+
 		server_program sv = new server_program();
 
 		try{
@@ -45,8 +55,6 @@ class Client extends Thread
 	public FileOutputStream fos;
 	public DataOutputStream dos;
 	public String url;
-	public String user;
-	public String password;
 	public File f;
 	public Statement st;
 	public ResultSet rs;
@@ -69,7 +77,7 @@ class Client extends Thread
 			pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(sc.getOutputStream())));
 			brf = new BufferedReader(new FileReader(f));
 			con = DriverManager.getConnection(url,user,password);
-			st = con.createStatement();	
+			st = con.createStatement();
 		}
 		catch(FileNotFoundException e){
 			System.out.println("File Not Found");
@@ -82,8 +90,8 @@ class Client extends Thread
 		}
 
 		while(true){
-			
-			try{				
+
+			try{
 				String str = br.readLine();
 				if(str != null)
 					System.out.println(str);
@@ -117,7 +125,7 @@ class Client extends Thread
 					default:
 						break;
 				}
-  				
+
 				//pw.println("Server : Message \"" + str + "\" from client");
 			}
 			catch(IOException e){

@@ -1,0 +1,9 @@
+@startuml
+actor user
+box "server" #LightBlue
+database data
+end box
+user -> data
+activate data
+data -> user
+@enduml
