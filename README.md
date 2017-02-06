@@ -12,6 +12,7 @@ I tested it with the following environment
     - MySQL (ver7.x.x)
     - Ubuntu 14
 - Client
+    - environment in which Java available
     - any system (tested Windows10 here)
 
 ### Build
