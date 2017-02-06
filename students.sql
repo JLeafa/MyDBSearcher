@@ -1,4 +1,5 @@
 create database test;
+use test;
 create table students(
 student_id char(6),
 student_name varchar(30),

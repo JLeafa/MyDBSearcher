@@ -9,8 +9,6 @@ import java.sql.*;
 public class server_program
 {
 	public static final int PORT = 10000;
-	public static String user;
-	public static String password;
 
 	/**
 	* main class
@@ -20,13 +18,8 @@ public class server_program
 	public static void main(String[] args)
 	{
 		Sytem.out.println("Authentification to login with Adminisrator");
-		//System.out.println("User name : ");
-		//Scanner scan_user = new Scanner(System.in);
-		//user = scan_user.next();
-
-		System.out.println("Password : ");
 		Scanner scan_pass = new Scanner(System.in);
-		password = scan_pass.next();
+		String password = scan_pass.next();
 
 		server_program sv = new server_program();
 
@@ -39,7 +32,7 @@ public class server_program
 					Socket sc = ss.accept();
 					System.out.println("Welcom!");
 
-					Client cl = new Client(sc);
+					Client cl = new Client(sc, password);
 					cl.start();
 				}
 				catch(Exception e){
@@ -66,7 +59,11 @@ class Client extends Thread
 	public String reply = "";
 	public FileOutputStream fos;
 	public DataOutputStream dos;
+
 	public String url;
+	public String user;
+	public String password;
+
 	public Statement st;
 	public ResultSet rs;
 	public ResultSetMetaData rm;
@@ -76,11 +73,11 @@ class Client extends Thread
 	* constructor
 	* @param s Socket
 	*/
-	public Client(Socket s){
+	public Client(Socket s, String pass){
 		sc = s;
 		url = "jdbc:mysql://localhost/test";
 		user = "root";
-		password = "";
+		this.password = pass;
 	}
 
 	/**
