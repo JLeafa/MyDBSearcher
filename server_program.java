@@ -9,8 +9,8 @@ import java.sql.*;
 public class server_program
 {
 	public static final int PORT = 10000;
-	public String user;
-	public String password;
+	public static String user;
+	public static String password;
 
 	/**
 	* main class
@@ -19,9 +19,10 @@ public class server_program
 	*/
 	public static void main(String[] args)
 	{
-		System.out.println("User name : ");
-		Scanner scan_user = new Scanner(System.in);
-		user = scan_user.next();
+		Sytem.out.println("Authentification to login with Adminisrator");
+		//System.out.println("User name : ");
+		//Scanner scan_user = new Scanner(System.in);
+		//user = scan_user.next();
 
 		System.out.println("Password : ");
 		Scanner scan_pass = new Scanner(System.in);
@@ -66,7 +67,6 @@ class Client extends Thread
 	public FileOutputStream fos;
 	public DataOutputStream dos;
 	public String url;
-	public File f;
 	public Statement st;
 	public ResultSet rs;
 	public ResultSetMetaData rm;
@@ -79,9 +79,8 @@ class Client extends Thread
 	public Client(Socket s){
 		sc = s;
 		url = "jdbc:mysql://localhost/test";
-		user = "";
+		user = "root";
 		password = "";
-		f = new File("./sample.dat");
 	}
 
 	/**
@@ -93,7 +92,6 @@ class Client extends Thread
 			br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
 			br_tmp = new BufferedReader(new InputStreamReader(sc.getInputStream()));
 			pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(sc.getOutputStream())));
-			brf = new BufferedReader(new FileReader(f));
 			con = DriverManager.getConnection(url,user,password);
 			st = con.createStatement();
 		}
@@ -115,7 +113,7 @@ class Client extends Thread
 					System.out.println(str);
 
 				switch(str){
-					case "show":
+					case "view":
 						rs = st.executeQuery("SELECT * FROM students");
 						rm = rs.getMetaData();
 						cnum = rm.getColumnCount();

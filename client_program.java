@@ -192,7 +192,7 @@ public class client_program extends JFrame
 				}
 			}
 			catch(IOException ex){
-
+				ex.printStackTrace();
 			}
 			catch(Exception ex){
 				ex.printStackTrace();
