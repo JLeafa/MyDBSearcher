@@ -3,12 +3,20 @@ import java.io.*;
 import java.net.*;
 import java.sql.*;
 
+/**
+* Server side class
+*/
 public class server_program
 {
 	public static final int PORT = 10000;
 	public String user;
 	public String password;
 
+	/**
+	* main class
+	* open socket
+	* @param args String[]
+	*/
 	public static void main(String[] args)
 	{
 		System.out.println("User name : ");
@@ -45,6 +53,9 @@ public class server_program
 	}
 }
 
+/**
+* Thread class tethered 1 client
+*/
 class Client extends Thread
 {
 	private Socket sc;
@@ -61,6 +72,10 @@ class Client extends Thread
 	public ResultSetMetaData rm;
 	public int cnum;
 
+	/**
+	* constructor
+	* @param s Socket
+	*/
 	public Client(Socket s){
 		sc = s;
 		url = "jdbc:mysql://localhost/test";
@@ -69,6 +84,9 @@ class Client extends Thread
 		f = new File("./sample.dat");
 	}
 
+	/**
+	* override method that execute a thread
+	*/
 	public void run()
 	{
 		try{

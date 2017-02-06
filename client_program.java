@@ -21,7 +21,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-
+/**
+* client side class
+*/
 public class client_program extends JFrame
 {
 	public static String HOST;
@@ -39,6 +41,9 @@ public class client_program extends JFrame
 	private static BufferedReader br;
 	private static PrintWriter pw;
 
+	/**
+	* constructor
+	*/
 	public client_program(){
 		super("User " + user_name + "--- Connect to " + HOST);
 
@@ -81,6 +86,10 @@ public class client_program extends JFrame
 		setVisible(true);
 	}
 
+	/**
+	* main class
+	* @param args String[]
+	*/
 	public static void main(String[] args)
 	{
 		HOST = args[0];
@@ -106,8 +115,16 @@ public class client_program extends JFrame
 	}
 	 */
 
+	/**
+	* Listener nested class
+	* When user input a query, then writing in buffer and send.
+	*/
 	public class SearchData implements ActionListener
 	{
+		/**
+		* event on GUI
+		* @param e ActionEvent
+		*/
 		public void actionPerformed(ActionEvent e)
 		{
 			try{
@@ -181,7 +198,12 @@ public class client_program extends JFrame
 				ex.printStackTrace();
 			}
 
-		}}
+		}
+	}
+
+	/**
+	* class ?
+	*/
 	public class ClientEnd implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -190,6 +212,9 @@ public class client_program extends JFrame
 		}
 	}
 
+	/**
+	* Window Listener nested class
+	*/
 	class SampleWindowListener extends WindowAdapter
 	{
 		public void windowClosing(WindowEvent e)
