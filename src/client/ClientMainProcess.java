@@ -1,3 +1,5 @@
+package client;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
@@ -24,7 +26,7 @@ import javax.swing.JTextField;
 /**
 * client side class
 */
-public class client_program extends JFrame
+public class ClientMainProcess extends JFrame
 {
 	public static String HOST;
 	public static final int PORT = 10000;
@@ -44,7 +46,7 @@ public class client_program extends JFrame
 	/**
 	* constructor
 	*/
-	public client_program(){
+	public ClientMainProcess(){
 		super("User " + user_name + "--- Connect to " + HOST);
 
 		tf_name = new JTextField();
@@ -93,7 +95,7 @@ public class client_program extends JFrame
 	public static void main(String[] args)
 	{
 		HOST = args[0];
-		client_program cp = new client_program();
+		ClientMainProcess cp = new ClientMainProcess();
 	}
 
 	/*
