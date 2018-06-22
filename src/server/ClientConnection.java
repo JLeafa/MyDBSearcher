@@ -27,9 +27,10 @@ public class ClientConnection implements Runnable  {
 
         while(true){
             try{
-                String receivedMessage = mBufferedReader.readLine();
-                mPrintWriter.println("Hello");
-                mPrintWriter.flush();
+                System.out.println("connect");
+                //String receivedMessage = mBufferedReader.readLine();
+//                mPrintWriter.println("Hello");
+//                mPrintWriter.flush();
             }
             catch (IOException e){
                 e.printStackTrace();
