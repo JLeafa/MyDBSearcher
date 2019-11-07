@@ -7,6 +7,6 @@ public class ConnectionLog {
     public static final String LOG_HEADER = "DEBUG : ";
 
     public static void MessageLog(String message){
-        System.out.print(LOG_HEADER + message);
+        System.out.println(LOG_HEADER + message);
     }
 }

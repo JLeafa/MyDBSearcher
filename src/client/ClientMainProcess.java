@@ -24,250 +24,70 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
-* client side class
-*/
+ * client side class
+ */
 
-public  class ClientMainProcess
-{
-	public static void main(String args[])
-	{
+public class ClientMainProcess {
+	public static void main(String args[]) {
 		String HOST = args[0];
 		int PORT = 10000;
-		try{
-			Socket sc = new Socket(HOST,PORT);
-			BufferedReader br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
-			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(sc.getOutputStream())));
+		Socket sc = null;
+		BufferedReader br = null;
+		PrintWriter pw = null;
 
-			while(true){
-				try{
+		try {
+			sc = new Socket(HOST, PORT);
+			br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
+			pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(sc.getOutputStream())));
+
+			while (true) {
+				try {
 					String str = br.readLine();
+					System.out.println(str);
 
-					if(str == null){
-						System.out.println("Disconnected");
+					if (str.equals("hello")) {
+						String res = "hello response";
+						pw.println(res);
+						pw.flush();
+					} else if (str.equals("done")) {
+						System.out.println("Write down message !!");
 						break;
 					}
-
-					//System.out.println(str);
-
-				}
-				catch(Exception ex){
+				} catch (Exception ex) {
+					ex.printStackTrace();
 					br.close();
 					pw.close();
 					sc.close();
 					break;
 				}
+			}
 
+			String line = "";
+			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+			while (true) {
+				line = stdin.readLine();
+				pw.println(line);
+				pw.flush();
+
+				if(line.equals("bye")) {
+					break;
+				}
 				String str = br.readLine();
-				System.out.println(str);
-
+				System.out.println("Server ==> " + str);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try{
+				br.close();
+				pw.close();
 				sc.close();
 			}
-		}
-		catch(IOException ex){
-			ex.printStackTrace();
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
-//public class ClientMainProcess extends JFrame
-//{
-//	public static String HOST;
-//	public static final int PORT = 10000;
-//	public static String user_name = "";
-//
-//	public static JTextField tf_name,tf_department,tf_age;
-//	public static JTextArea  ta;
-//	public static JScrollPane sp;
-//	public static JPanel pn,pn2;
-//	public static JLabel lb_name,lb_age,lb_department;
-//	public static JButton bt_view,bt_search,bt_close;
-//
-//	private static Socket sc;
-//	private static BufferedReader br;
-//	private static PrintWriter pw;
-//
-//	/**
-//	* constructor
-//	*/
-//	public ClientMainProcess(){
-//		super("User " + user_name + "--- Connect to " + HOST);
-//
-//		tf_name = new JTextField();
-//		tf_age = new JTextField();
-//		tf_department = new JTextField();
-//		ta = new JTextArea();
-//		sp = new JScrollPane(ta);
-//		pn = new JPanel();
-//		pn2 = new JPanel();
-//		bt_view = new JButton("View All");
-//		bt_search = new JButton("Search");
-//		bt_close = new JButton("Close");
-//		lb_name = new JLabel("Name?");
-//		lb_department = new JLabel("Department?");
-//		lb_age = new JLabel("Age?");
-//
-//		//pn.add(bt_view);
-//		pn.add(bt_search);
-//		pn.add(bt_close);
-//		pn2.setLayout(new GridLayout(3,2));
-//		pn2.add(lb_name);
-//		pn2.add(tf_name);
-//		pn2.add(lb_age);
-//		pn2.add(tf_age);
-//		pn2.add(lb_department);
-//		pn2.add(tf_department);
-//
-//		add(pn2, BorderLayout.NORTH);
-//		add(sp, BorderLayout.CENTER);
-//		add(pn, BorderLayout.SOUTH);
-//
-//		//bt_view.addActionListener(new ViewAllData());
-//		bt_search.addActionListener(new SearchData());
-//		bt_close.addActionListener(new ClientEnd());
-//		bt_search.getRootPane().setDefaultButton(bt_view);
-//		addWindowListener(new SampleWindowListener());
-//
-//		setSize(800,450);
-//		setVisible(true);
-//	}
-//
-//	/**
-//	* main class
-//	* @param args String[]
-//	*/
-//	public static void main(String[] args)
-//	{
-//		HOST = args[0];
-//		ClientMainProcess cp = new ClientMainProcess();
-//	}
-//
-//	/*
-//	public class ViewAllData implements ActionListener
-//	{
-//		public void actionPerformed(ActionEvent e)
-//		{
-//			try{
-//				//Message to server
-//				String str = "show";
-//				pw.println(str);
-//				ta.append("Client : [" + str + "]\n");
-//				pw.flush();
-//			}
-//			catch(Exception ex){
-//				ex.printStackTrace();
-//			}
-//		}
-//	}
-//	 */
-//
-//	/**
-//	* Listener nested class
-//	* When user input a query, then writing in buffer and send.
-//	*/
-//	public class SearchData implements ActionListener
-//	{
-//		/**
-//		* event on GUI
-//		* @param e ActionEvent
-//		*/
-//		public void actionPerformed(ActionEvent e)
-//		{
-//			try{
-//				sc = new Socket(HOST,PORT);
-//				br = new BufferedReader(new InputStreamReader(sc.getInputStream()));
-//				pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(sc.getOutputStream())));
-//
-//				while(true){
-//					try{
-//						String str = br.readLine();
-//
-//						if(str == null){
-//							ta.append("Disconnected");
-//							break;
-//						}
-//
-//						//System.out.println(str);
-//						ta.append(str + "\n");
-//
-//						sp.getViewport().scrollRectToVisible(new Rectangle(0, Integer.MAX_VALUE - 1, 1, 1));
-//						ta.setCaretPosition(ta.getDocument().getLength());
-//					}
-//					catch(Exception ex){
-//						br.close();
-//						pw.close();
-//						sc.close();
-//						break;
-//					}
-//
-//					String str;
-//					if(tf_name.getText().equals("") && tf_age.getText().equals("") && tf_department.getText().equals(""))
-//						str = "view";
-//					else
-//						str = "search";
-//
-//					pw.println(str);
-//					pw.flush();
-//
-//					StringBuffer str_buf = new StringBuffer();
-//
-//					str = null;
-//
-//					if(!(tf_name.getText().equals(""))){
-//						str_buf.append("student_name LIKE '%" + tf_name.getText() + "%' ");
-//					}
-//					if(!(tf_age.getText().equals(""))){
-//						if(str_buf.length() == 0)
-//							str_buf.append("age = " + tf_age.getText() + " ");
-//						else
-//							str_buf.append("AND age = " + tf_age.getText() + " ");
-//					}
-//					if(!(tf_department.getText().equals(""))){
-//						if(str_buf.length() == 0)
-//							str_buf.append("department = '" + tf_department.getText() + "'");
-//						else
-//							str_buf.append("AND department = '" + tf_department.getText() + "'");
-//					}
-//
-//					str = str_buf.toString();
-//					pw.println(str);
-//					System.out.println(str);
-//					ta.append("Client : [search]\n");
-//					pw.flush();
-//					sc.close();
-//				}
-//			}
-//			catch(IOException ex){
-//				ex.printStackTrace();
-//			}
-//			catch(Exception ex){
-//				ex.printStackTrace();
-//			}
-//
-//		}
-//	}
-//
-//	/**
-//	* class ?
-//	*/
-//	public class ClientEnd implements ActionListener
-//	{
-//		public void actionPerformed(ActionEvent e)
-//		{
-//			System.exit(0);
-//		}
-//	}
-//
-//	/**
-//	* Window Listener nested class
-//	*/
-//	class SampleWindowListener extends WindowAdapter
-//	{
-//		public void windowClosing(WindowEvent e)
-//		{
-//			System.exit(0);
-//		}
-//	}
-//}
-////file end

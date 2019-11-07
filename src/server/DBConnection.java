@@ -10,10 +10,13 @@ public class DBConnection {
     Statement mStatement = null;
     private final int TIMEOUT = 30;
 
+    private final String sqliteDatabaseDir = "../sqlite_db";
+    private final String sqliteDatabaseName = "chinook.db";
+
     DBConnection(){
         try {
             Class.forName("org.sqlite.JDBC");
-            mConnection = DriverManager.getConnection("jdbc:sqlite:E:/SQL/test/sample.db");
+            mConnection = DriverManager.getConnection("jdbc:sqlite:" + sqliteDatabaseDir + "/" + sqliteDatabaseName);
             mStatement = mConnection.createStatement();
             mStatement.setQueryTimeout(this.TIMEOUT);
         }

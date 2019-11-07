@@ -3,7 +3,12 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.lang.Thread;
+
 import util.ConnectionLog;
+import server.*;
 
 /**
  * Created by Junya on 2017/06/28.
@@ -11,17 +16,28 @@ import util.ConnectionLog;
 public class Receiver {
     private ServerSocket mServerSocket;
     private Socket mSocket;
-    private static final int LISTEN_PORT = 10000;
+    private int LISTEN_PORT = 10000;
 
     public void exec(){
         try {
             mServerSocket = new ServerSocket(LISTEN_PORT);
-            ConnectionLog.MessageLog("Listening with PORT " + LISTEN_PORT + "...");
-            mSocket = mServerSocket.accept();
-            new ClientConnection(mSocket).run();
         }
-        catch (IOException e){
+        catch (SocketTimeoutException e) {
+            ConnectionLog.MessageLog("Timeout");
+        }
+        catch (Exception e){
             e.printStackTrace();
+        }
+
+        while (true) {
+            ConnectionLog.MessageLog("Listening with PORT " + LISTEN_PORT + "...");
+            try {
+                mSocket = mServerSocket.accept();
+            } catch (IOException e) {
+                //TODO: handle exception
+                ConnectionLog.MessageLog("Cannot accept");
+            }
+            new Thread(new ClientConnection(mSocket)).start();
         }
     }
 }
