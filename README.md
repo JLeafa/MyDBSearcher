@@ -48,12 +48,3 @@ You type the command below
 ```
 make run
 ```
-
-### How to use
-
-![GUI](sampleGUI.png "GUI")
-
-1. no query and push *search* button
-    - All the data in a database is showed.
-2. query and push *search* button
-    - corresponding data is showed
