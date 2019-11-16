@@ -1,50 +1,48 @@
-## java_network_test
+# java_network_test
+
 This project is production of light network application that is coded by Java.
 
-### Specification
+## Specification
+
 This application provides the "searching service" from database.  
 A server pripare database, then client connect to it.  
 Also application supports the GUI function.  
 model.png shows the application sequence chart.  
 
-### Environment
+## Environment
+
 I tested it with the following environment
 
-- Server
-    - MySQL (ver7.x.x)
-    - Ubuntu 14
-    - JDBC driver in order to access to MySQL server from Java application
-    - add ```/usr/share/java/mysql.jar``` into linux $CLASSPATH 
-- Client
-    - environment in which Java available
-    - any system (tested Windows10 here)
+- OS
+  - MacOS Mojave 10.14.6
+- Java version
+  - OpenJDK Runtime Environment (build 13+33)
+- Database
+  - Sqlite3 (3.24.0)
 
-### Build
-At first, a database table is created in server.  
-I proposed you a sample dabase script ```student.sql```.  
-It contains an aerial student data with *name, age, department in a university*  
-Then you can build this project as below.
+## Build
+
+At first, a database table has to be created in server.  
+For example, I recomend you to use Chinook sample dataset.
+Then, you type the following command in the top directory.
 
 ```
 make build
 ```
 
-But, you have to set the classpath that refers corrent directory and mysql.jar
+But, you have to set the classpath that refers corrent directory and postgresql.jar.
+(Currently the path is hardcoded in server source file)
 
-### Do
-To execute class files, two consoles or two PC are needed.
-#### Client Side
+## Run
 
-You type the command below
+At first, server program is started.
+
+```bash
+./run.sh server
 ```
-java client "IP Address of Server"
-```
 
-then, GUI window is opened
+Client program is started as well after server running.
 
-#### Server Side
-You type the command below
-
-```
-make run
+```bash
+./run.sh client localhost
 ```

@@ -1,6 +1,7 @@
-package server;
+package jp.akatsubakij.server;
 
-import server.*;
+import jp.akatsubakij.server.Receiver;
+import jp.akatsubakij.server.ServerPrompt;
 import java.lang.Thread;
 
 /**

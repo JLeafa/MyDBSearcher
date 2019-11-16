@@ -1,4 +1,4 @@
-package server;
+package jp.akatsubakij.server;
 
 import java.sql.*;
 
@@ -10,10 +10,10 @@ public class DBConnection {
     Statement mStatement = null;
     private final int TIMEOUT = 30;
 
-    private final String sqliteDatabaseDir = "../sqlite_db";
+    private final String sqliteDatabaseDir = "/Users/junyaogawa29/Documents/GitHub/JAkatsubaki/DBSearcherOnJava/src/resource/sqlite_db";
     private final String sqliteDatabaseName = "chinook.db";
 
-    DBConnection(){
+    public DBConnection(){
         try {
             Class.forName("org.sqlite.JDBC");
             mConnection = DriverManager.getConnection("jdbc:sqlite:" + sqliteDatabaseDir + "/" + sqliteDatabaseName);

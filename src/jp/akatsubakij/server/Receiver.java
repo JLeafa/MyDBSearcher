@@ -1,4 +1,4 @@
-package server;
+package jp.akatsubakij.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -7,8 +7,8 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.lang.Thread;
 
-import util.ConnectionLog;
-import server.*;
+import jp.akatsubakij.util.ConnectionLog;
+import jp.akatsubakij.server.*;
 
 /**
  * Created by Junya on 2017/06/28.
